@@ -13,12 +13,12 @@ export default class CadastroServico extends Cadastro {
     }
     
     public cadastrar(): void {
-        console.log(`\nInício do cadastro do Produto`);
+        console.log(`\nInício do cadastro do Serviço`);
         let servico = new Servico()
-        servico.nome = this.entrada.receberTexto('Por favor, digite o nome do produto: ')
+        servico.nome = this.entrada.receberTexto('Por favor, digite o nome do serviço: ')
 
         this.servicos.push(servico)
-        console.log(`Produto cadastrado com sucesso!`)
+        console.log(`Serviço cadastrado com sucesso!`)
     }
 
 }

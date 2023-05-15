@@ -1,7 +1,7 @@
 import Servico from "../modelo/servico";
 import Listagem from "./listagem";
 
-export default class ListagemProdutos extends Listagem {
+export default class ListagemServicos extends Listagem {
     private servicos: Array<Servico>
     constructor(servicos: Array<Servico>) {
         super()
