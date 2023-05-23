@@ -43,17 +43,22 @@ while (execucao) {
 
     switch (opcao) {
         case 1:
-            let cadastro = new CadastroCliente(empresa.getClientes)
+            let cadastro = new CadastroCliente(empresa.getClientes, empresa.getRG)
             cadastro.cadastrar()
             break;
         case 2:
-            let listagem = new ListagemClientes(empresa.getClientes)
+            let listagem = new ListagemClientes(empresa.getClientes, empresa.getRG)
             listagem.listar()
             break;
-        // case 3:
-        //     let atualizar = new AtualizarCliente(empresa.getClientes)
-        //     atualizar.atualizar()
-        //     break;
+        case 3:
+            let selecionarCliente = new SelecionadorCliente(empresa.getClientes)
+            let procurarCliente = entrada.receberTexto(`Por favor, digite número cpf do cliente para atualizar: `)
+            let atuCliente = selecionarCliente.selecionar(procurarCliente)
+            let novoNomeCliente = entrada.receberTexto(`Por favor informe o novo nome: `)
+            let novoNomeSocialCliente = entrada.receberTexto(`Por favor informe o novo nome social: `)
+            let atualizarCliente = new AtualizarCliente(empresa.getClientes)
+            atualizarCliente.atualizar(atuCliente, novoNomeCliente, novoNomeSocialCliente)
+            break;
         case 4:
             let selecionadorCliente = new SelecionadorCliente(empresa.getClientes)
             let cpf = entrada.receberTexto(`Por favor, digite o cpf do cliente para excluir: `)
@@ -70,10 +75,14 @@ while (execucao) {
             let listagemProduto = new ListagemProdutos(empresa.getProdutos)
             listagemProduto.listar()
             break;
-        // case 7:
-        //     let atualizarProduto = new AtualizarProduto(empresa.getProdutos)
-        //     atualizarProduto.atualizar()
-        //     break;
+        case 7:
+            let selecionarProduto = new SelecionadorProduto(empresa.getProdutos)
+            let procurarProduto = entrada.receberTexto(`Por favor, digite o nome do serviço para atualizar: `)
+            let atuProduto = selecionarProduto.selecionar(procurarProduto)
+            let novoNomeProduto = entrada.receberTexto(`Por favor informe o novo nome do serviço: `)
+            let atualizarProduto = new AtualizarServico(empresa.getProdutos)
+            atualizarProduto.atualizar(atuProduto, novoNomeProduto)
+            break;
         case 8:
             let selecionadorProduto = new SelecionadorProduto(empresa.getProdutos)
             let nome = entrada.receberTexto(`Por favor, digite o nome do produto para excluir: `)

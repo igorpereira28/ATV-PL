@@ -47,4 +47,9 @@ export default class Cliente {
     public get getPets(): Array<Pet>{
         return this.pets
     }
+
+    public adicionarRG(valor: string, dataEmissao: Date): void {
+        const rg = new RG(valor, dataEmissao, this);
+        this.rgs.push(rg);
+    }
 }

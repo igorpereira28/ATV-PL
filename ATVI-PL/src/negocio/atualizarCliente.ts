@@ -1,15 +1,21 @@
+import Entrada from "../io/entrada";
 import Cliente from "../modelo/cliente";
-import Atualizar from "./atualizar";
 
-export default class AtualizarCliente extends Atualizar {
-    [x: string]: any;
+export default class AtualizarCliente{
+    private entrada: Entrada
     private clientes: Array<Cliente>
+
     constructor(clientes: Array<Cliente>) {
-        super();
         this.clientes = clientes
+        this.entrada = new Entrada()
     }
 
-    public atualizar(): void {
-        throw new Error("Method not implemented.");
+    public atualizar(clienteAlvo: Cliente, novoNomeCliente: string, novoNomeSocialCliente: string) {
+        this.clientes.forEach((cliente, indice) => {
+            if (cliente.getCpf == clienteAlvo.getCpf){
+                this.clientes[indice].nome = novoNomeCliente
+                this.clientes[indice].nomeSocial = novoNomeSocialCliente
+            }
+        })
     }
 }

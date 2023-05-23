@@ -1,9 +1,21 @@
-import Atualizar from "./atualizar";
+import Entrada from "../io/entrada";
+import Produto from "../modelo/produto";
 
-export default class AtualizarProduto extends Atualizar {
-    
-    public atualizar(): void {
-        throw new Error("Method not implemented.");
-    }
+export default class AtualizarProduto{
+        private entrada: Entrada
+        private produtos: Array<Produto>
+
+        constructor(produtos: Array<Produto>) {
+            this.produtos = produtos
+            this.entrada = new Entrada()
+        }
+
+        public atualizar(produtoAlvo: Produto, novoProduto: string) {
+            this.produtos.forEach((produto, indice) => {
+                if (produto.nome == produtoAlvo.nome){
+                    this.produtos[indice].nome = novoProduto
+                }
+            })
+        }
     
 }
