@@ -1,18 +1,22 @@
 import Entrada from "../io/entrada"
 import Cliente from "../modelo/cliente"
 import CPF from "../modelo/cpf"
+import Pet from "../modelo/pet"
 import RG from "../modelo/rg"
+import Telefone from "../modelo/telefone"
 import Cadastro from "./cadastro"
 
 export default class CadastroCliente extends Cadastro {
     private clientes: Array<Cliente>
     private entrada: Entrada
     private rgs: Array<RG>
-    constructor(clientes: Array<Cliente>, rgs: Array<RG>) {
+    private telefones: Array<Telefone>
+    constructor(clientes: Array<Cliente>, rgs: Array<RG>, telefones: Array<Telefone>) {
         super()
         this.clientes = clientes
         this.entrada = new Entrada()
         this.rgs = rgs
+        this.telefones = telefones
     }
     public cadastrar(): void {
         console.log(`\nInício do cadastro do cliente`);
@@ -43,8 +47,42 @@ export default class CadastroCliente extends Cadastro {
         
         let salvarrg = new RG(valorRG, dataEmissaoRG, cliente);
         this.rgs.push(salvarrg)
+
+        //Telefone
+        let execucao = true
+
+        while (execucao) {
+            console.log(`Deseja cadastrar telefone(s):`);
+            console.log(`1 - Sim`);
+            console.log(`2 - Não`);
+
+            let entrada = new Entrada()
+            let opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
+
+            switch (opcao) {
+
+                case 1:
+
+                    //Telefone
+                    let adcTelefone = this.entrada.receberTexto(`Por favor informe o número do seu telefone com o DDD, neste formato 12-999999999: `);
+                    let partesTelefone = adcTelefone.split('-')
+                    let ddd = new String(partesTelefone[0].valueOf()).valueOf()
+                    let numero = new String(partesTelefone[1].valueOf()).valueOf()
+                    let salvarTelefone = new Telefone(ddd, numero, cliente);
+                    this.telefones.push(salvarTelefone)
+                    break;
+
+                case 2:
+                    execucao = false
+                    console.log(`BLZ`)
+                    break;
+            }
+        }
+
+
         
         console.log(salvarrg);
+        // console.log(salvarTelefone);
         console.log(`\nCadastro concluído :)\n`);
     }
 }

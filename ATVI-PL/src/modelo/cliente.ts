@@ -52,4 +52,14 @@ export default class Cliente {
         const rg = new RG(valor, dataEmissao, this);
         this.rgs.push(rg);
     }
+
+    public adicionarTelefone(ddd: string, numero: string): void {
+        const telefone = new Telefone(ddd, numero, this);
+        this.telefones.push(telefone);
+    }
+
+    public adicionarPet(nome: string, raca: string, genero: string, tipo: string): void {
+        const pet = new Pet(nome, raca, genero, tipo, this);
+        this.pets.push(pet);
+    }
 }

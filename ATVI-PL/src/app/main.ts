@@ -4,10 +4,12 @@ import AtualizarCliente from "../negocio/atualizarCliente";
 import AtualizarProduto from "../negocio/atualizarProduto";
 import AtualizarServico from "../negocio/atualizarServico";
 import CadastroCliente from "../negocio/cadastroCliente";
+import CadastroPet from "../negocio/cadastroPet";
 import CadastroProduto from "../negocio/cadastroProduto";
 import CadastroServico from "../negocio/cadastroServico";
 import ExcluirCliente from "../negocio/deletarCliente";
 import DeletarCliente from "../negocio/deletarCliente";
+import ExcluirPet from "../negocio/deletarPet";
 import ExcluirProduto from "../negocio/deletarProduto";
 import DeletarProduto from "../negocio/deletarProduto";
 import DeletarServico from "../negocio/deletarServico";
@@ -36,6 +38,10 @@ while (execucao) {
     console.log(`10 - Listar todos os serviços`);
     console.log(`11 - Atualizar serviço`);
     console.log(`12 - Deletar serviço`);
+    console.log(`13 - Cadastrar PET`);
+    console.log(`14 - Listar todos os pets`);
+    console.log(`15 - Atualizar pet`);
+    console.log(`16 - Deletar pet`);
     console.log(`0 - Sair`);
 
     let entrada = new Entrada()
@@ -43,11 +49,11 @@ while (execucao) {
 
     switch (opcao) {
         case 1:
-            let cadastro = new CadastroCliente(empresa.getClientes, empresa.getRG)
+            let cadastro = new CadastroCliente(empresa.getClientes, empresa.getRG, empresa.getTelefones)
             cadastro.cadastrar()
             break;
         case 2:
-            let listagem = new ListagemClientes(empresa.getClientes, empresa.getRG)
+            let listagem = new ListagemClientes(empresa.getClientes, empresa.getRG, empresa.getTelefones, empresa.getPets)
             listagem.listar()
             break;
         case 3:
@@ -113,6 +119,15 @@ while (execucao) {
             let servico = selecionadorServico.selecionar(nomeServico)
             let excluidorServico = new ExcluirProduto(empresa.getServicos)
             excluidorServico.excluir(servico)
+            break;
+        case 13:
+            let cadastroPet = new CadastroPet(empresa.getClientes, empresa.getPets)
+            cadastroPet.cadastrar()
+            break;
+
+        case 16:
+            let excluidorPet = new ExcluirPet(empresa.getClientes, empresa.getPets)
+            excluidorPet.excluir()
             break;
 
         case 0:
