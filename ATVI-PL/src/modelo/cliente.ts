@@ -1,6 +1,8 @@
+import CadastroProdutoConsumido from "../negocio/cadastroProdutosConsumidos"
 import CPF from "./cpf"
 import Pet from "./pet"
 import Produto from "./produto"
+import ProdutoConsumido from "./produtoConsumido"
 import RG from "./rg"
 import Servico from "./servico"
 import Telefone from "./telefone"
@@ -62,4 +64,9 @@ export default class Cliente {
         const pet = new Pet(nome, raca, genero, tipo, this);
         this.pets.push(pet);
     }
+
+    // public adicionarProdutoConsumido(): void {
+    //     const adcprodutosConsumidos = new ProdutoConsumido(this, this, this);
+    //     this.produtosConsumidos.push(adcprodutosConsumidos);
+    // }
 }

@@ -49,7 +49,7 @@ export default class CadastroPet extends Cadastro {
                     console.log(`BLZ`)
                     break;
             }
-        } 
+        }
     
     }
 }

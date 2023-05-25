@@ -6,6 +6,7 @@ import AtualizarServico from "../negocio/atualizarServico";
 import CadastroCliente from "../negocio/cadastroCliente";
 import CadastroPet from "../negocio/cadastroPet";
 import CadastroProduto from "../negocio/cadastroProduto";
+import CadastroProdutoConsumido from "../negocio/cadastroProdutosConsumidos";
 import CadastroServico from "../negocio/cadastroServico";
 import ExcluirCliente from "../negocio/deletarCliente";
 import DeletarCliente from "../negocio/deletarCliente";
@@ -14,9 +15,11 @@ import ExcluirProduto from "../negocio/deletarProduto";
 import DeletarProduto from "../negocio/deletarProduto";
 import DeletarServico from "../negocio/deletarServico";
 import ListagemClientes from "../negocio/listagemClientes";
+import ListagemPet from "../negocio/listagemPet";
 import ListagemProdutos from "../negocio/listagemProdutos";
 import ListagemServicos from "../negocio/listagemServicos";
 import SelecionadorCliente from "../negocio/selecionadorCliente";
+import SelecionadorPet from "../negocio/selecionadorPet";
 import SelecionadorProduto from "../negocio/selecionadorProduto";
 import SelecionadorServico from "../negocio/selecionadorServico";
 
@@ -124,10 +127,30 @@ while (execucao) {
             let cadastroPet = new CadastroPet(empresa.getClientes, empresa.getPets)
             cadastroPet.cadastrar()
             break;
+        case 14:
+            let listagemPet = new ListagemPet(empresa.getPets, empresa.getClientes)
+            listagemPet.listar()
+            break;
 
         case 16:
             let excluidorPet = new ExcluirPet(empresa.getClientes, empresa.getPets)
             excluidorPet.excluir()
+            break;
+
+        case 17:
+            let listagemProduto1 = new ListagemProdutos(empresa.getProdutos)
+            listagemProduto1.listar()
+            let verificarProduto = new SelecionadorProduto(empresa.getProdutos)
+            let verificarCliente = new SelecionadorCliente(empresa.getClientes)
+            let verificarPet = new SelecionadorPet(empresa.getClientes, empresa.getPets)
+            let opcaoProduto = entrada.receberTexto(`Por favor, digite o nome de uma das opções do produto fornecido: `)
+            let opcaoCliente = entrada.receberTexto(`Por favor, digite o cpf do responsável do pet: `)
+            let opcaoPet = entrada.receberTexto(`Por favor, digite o nome do pet: `)
+            let procurarProduto1 = verificarProduto.selecionar(opcaoProduto)
+            let procurarCliente1 = verificarCliente.selecionar(opcaoCliente)
+            let procurarPet1 = verificarPet.selecionar(opcaoCliente, opcaoPet)          
+            let cadastroProdutoConsumido = new CadastroProdutoConsumido(empresa.getClientes, empresa.getProdutos, empresa.getPets, empresa.getProdutosConsumidos)
+            cadastroProdutoConsumido.cadastrar(procurarCliente1, procurarProduto1, procurarPet1)
             break;
 
         case 0:

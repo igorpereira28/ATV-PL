@@ -20,4 +20,7 @@ export default class Pet {
     public get getGenero(){return this.genero}
     public get getTipo(){return this.tipo}
     public getCliente(): Cliente {return this.cliente}
+    public getClienteCPF(): string {
+        return this.cliente.getCpf.getValor; // Retorna apenas o valor do CPF do cliente
+    }
 }
