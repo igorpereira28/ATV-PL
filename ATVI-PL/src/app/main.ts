@@ -17,6 +17,7 @@ import DeletarServico from "../negocio/deletarServico";
 import ListagemClientes from "../negocio/listagemClientes";
 import ListagemPet from "../negocio/listagemPet";
 import ListagemProdutos from "../negocio/listagemProdutos";
+import ListagemProdutosConsumidos from "../negocio/listagemProdutosConsumidos";
 import ListagemServicos from "../negocio/listagemServicos";
 import SelecionadorCliente from "../negocio/selecionadorCliente";
 import SelecionadorPet from "../negocio/selecionadorPet";
@@ -151,6 +152,11 @@ while (execucao) {
             let procurarPet1 = verificarPet.selecionar(opcaoCliente, opcaoPet)          
             let cadastroProdutoConsumido = new CadastroProdutoConsumido(empresa.getClientes, empresa.getProdutos, empresa.getPets, empresa.getProdutosConsumidos)
             cadastroProdutoConsumido.cadastrar(procurarCliente1, procurarProduto1, procurarPet1)
+            break;
+
+        case 18:
+            let listagemProdutoConsumido = new ListagemProdutosConsumidos(empresa.getClientes, empresa.getPets, empresa.getProdutosConsumidos)
+            listagemProdutoConsumido.listar()
             break;
 
         case 0:

@@ -15,4 +15,7 @@ export default class ProdutoConsumido {
     public getCliente(): Cliente {return this.cliente}
     public getProduto(): Produto {return this.produto}
     public getPet(): Pet {return this.pets}
+    public getClienteCPF(): string {
+        return this.cliente.getCpf.getValor; // Retorna apenas o valor do CPF do cliente
+    }
 }
