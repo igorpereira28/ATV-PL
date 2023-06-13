@@ -16,6 +16,7 @@ export default class Empresa{
     private produtosConsumidos: Array<ProdutoConsumido>
     static getProdutos: Produto[]
     static getClientes: Cliente[]
+    static getTelefones: Telefone[]
     constructor(){
         this.clientes = []
         this.produtos = []

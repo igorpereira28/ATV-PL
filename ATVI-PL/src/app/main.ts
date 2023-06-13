@@ -1,6 +1,7 @@
 import Entrada from "../io/entrada";
 import Empresa from "../modelo/empresa";
 import AtualizarCliente from "../negocio/atualizarCliente";
+import AtualizarPet from "../negocio/atualizarPet";
 import AtualizarProduto from "../negocio/atualizarProduto";
 import AtualizarServico from "../negocio/atualizarServico";
 import CadastroCliente from "../negocio/cadastroCliente";
@@ -133,6 +134,11 @@ while (execucao) {
             listagemPet.listar()
             break;
 
+        case 15:
+            let procurarResponsavelPet = entrada.receberTexto(`Por favor, digite o CPF do cliente para atualizar o pet: `);
+            let atualizarPet = new AtualizarPet(empresa.getClientes, empresa.getPets);
+            atualizarPet.atualizar(procurarResponsavelPet);
+            break;
         case 16:
             let excluidorPet = new ExcluirPet(empresa.getClientes, empresa.getPets)
             excluidorPet.excluir()

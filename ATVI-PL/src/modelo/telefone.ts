@@ -21,4 +21,8 @@ export default class Telefone {
     public getCliente(): Cliente {
         return this.cliente;
     }
+
+    public setNumero(novoNumero: string): void {
+        this.numero = novoNumero;
+    }
 }
