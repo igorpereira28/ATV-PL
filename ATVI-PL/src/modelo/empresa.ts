@@ -5,6 +5,7 @@ import ProdutoConsumido from "./produtoConsumido"
 import RG from "./rg"
 import Servico from "./servico"
 import Telefone from "./telefone"
+import ServicoConsumido from "./servicoConsumido"
 
 export default class Empresa{
     private clientes: Array<Cliente>
@@ -14,7 +15,9 @@ export default class Empresa{
     private telefones: Array<Telefone>
     private pets: Array<Pet>
     private produtosConsumidos: Array<ProdutoConsumido>
+    private servicosConsumidos: Array<ServicoConsumido>
     static getProdutos: Produto[]
+    // static getServicos: Servico[]
     static getClientes: Cliente[]
     static getTelefones: Telefone[]
     constructor(){
@@ -25,6 +28,7 @@ export default class Empresa{
         this.telefones = []
         this.pets = []
         this.produtosConsumidos = []
+        this.servicosConsumidos = []
     }
     public get getClientes(){
         return this.clientes
@@ -46,5 +50,8 @@ export default class Empresa{
     }
     public get getProdutosConsumidos(){
         return this.produtosConsumidos
+    }
+    public get getServicosConsumidos(){
+        return this.servicosConsumidos
     }
 }

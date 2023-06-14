@@ -1,21 +1,21 @@
 import Cliente from "./cliente"
 import Pet from "./pet";
-import Produto from "./produto";
+import Servico from "./servico";
 
-export default class ProdutoConsumido {
+export default class ServicoConsumido {
     private cliente: Cliente
-    private produto: Produto
-    private quantidade: number;
+    private servico: Servico
     private pets: Pet
+    private quantidade: number;
 
-    constructor(cliente: Cliente, produto: Produto, pets: Pet, quantidade: number) {
+    constructor(cliente: Cliente, servico: Servico, pets: Pet, quantidade: number) {
         this.cliente = cliente; // Atribui o cliente correspondente
-        this.produto = produto
-        this.quantidade = quantidade
+        this.servico = servico
         this.pets = pets
+        this.quantidade = quantidade
     }
     public getCliente(): Cliente {return this.cliente}
-    public getProduto(): Produto {return this.produto}
+    public getServico(): Servico {return this.servico}
     public getPet(): Pet {return this.pets}
     public getClienteCPF(): string {
         return this.cliente.getCpf.getValor; // Retorna apenas o valor do CPF do cliente

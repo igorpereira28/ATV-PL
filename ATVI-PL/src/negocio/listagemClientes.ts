@@ -33,13 +33,13 @@ export default class ListagemClientes extends Listagem {
                 console.log(`Telefone: ${'(' + telefone.getDdd + ')' + telefone.getNumero}`);
             });
             // Encontrar os pets correspondentes ao cliente
-            const petsCliente = this.pets.filter(pet => pet.getCliente() === cliente);
-            petsCliente.forEach(pet => {
-                console.log(`Nome do Pet: ${pet.getNome}`);
-                console.log(`Raça do Pet: ${pet.getRaca}`);
-                console.log(`Gênero do Pet: ${pet.getGenero}`);
-                console.log(`Tipo do Pet: ${pet.getTipo}`);
-            });
+            // const petsCliente = this.pets.filter(pet => pet.getCliente() === cliente);
+            // petsCliente.forEach(pet => {
+            //     console.log(`Nome do Pet: ${pet.getNome}`);
+            //     console.log(`Raça do Pet: ${pet.getRaca}`);
+            //     console.log(`Gênero do Pet: ${pet.getGenero}`);
+            //     console.log(`Tipo do Pet: ${pet.getTipo}`);
+            // });
 
             console.log(`--------------------------------------`);
         });

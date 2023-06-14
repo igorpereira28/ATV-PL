@@ -1,29 +1,31 @@
 import Cliente from "../modelo/cliente";
 import Pet from "../modelo/pet";
-import ProdutoConsumido from "../modelo/produtoConsumido";
+import ServicoConsumido from "../modelo/servicoConsumido";
 import Listagem from "./listagem";
 
-export default class ListagemProdutosConsumidos extends Listagem {
+export default class ListagemServicosConsumidos extends Listagem {
     private clientes: Array<Cliente>
-    private produtosConsumidos: Array<ProdutoConsumido>
     private pets: Array<Pet>
-    constructor(clientes: Array<Cliente>, produtosConsumidos: Array<ProdutoConsumido>, pets: Array<Pet>) {
+    private servicoConsumidos: Array<ServicoConsumido>
+    constructor(clientes: Array<Cliente>,pets: Array<Pet>, servicoConsumidos: Array<ServicoConsumido>) {
         super()
         this.clientes = clientes
-        this.produtosConsumidos = produtosConsumidos
         this.pets = pets
+        this.servicoConsumidos = servicoConsumidos
     }
     public listar(): void {
         console.log(`\nLista de todos os produtos consumidos por cliente:`);
-        this.produtosConsumidos.forEach(produtoConsumido => {
-            const clienteResponsavel = this.clientes.find(cliente => cliente.getCpf.getValor === produtoConsumido.getCliente().getCpf.getValor);
+        this.servicoConsumidos.forEach(servicoConsumidos => {
+            const clienteResponsavel = this.clientes.find(cliente => cliente.getCpf.getValor === servicoConsumidos.getCliente().getCpf.getValor);
             if (clienteResponsavel) {
                 console.log(`Nome do Responsável: ${clienteResponsavel.nome}`);
             } else {
                 console.log(`Responsável não encontrado.`);
             }
-            console.log(`Quantidade: ${produtoConsumido.getQuantidade()}`);
-            console.log(`Produto: ${produtoConsumido.getProduto().nome}`);
+            console.log(`Produto: ${servicoConsumidos.getServico().nome}`);
+            console.log(`Pet: ${servicoConsumidos.getPet().getNome}`);
+            console.log(`Quantidade: ${servicoConsumidos.getQuantidade()}`);
+
             console.log(`--------------------------------------`);
         });
         console.log(`\n`);
@@ -33,9 +35,9 @@ export default class ListagemProdutosConsumidos extends Listagem {
         const clientesQuantidade: Map<string, number> = new Map();
 
         // Calcular a quantidade total de produtos consumidos por cada cliente
-        this.produtosConsumidos.forEach(produtoConsumido => {
-            const clienteCpf = produtoConsumido.getCliente().getCpf.getValor;
-            const quantidade = produtoConsumido.getQuantidade();
+        this.servicoConsumidos.forEach(servicoConsumido => {
+            const clienteCpf = servicoConsumido.getCliente().getCpf.getValor;
+            const quantidade = servicoConsumido.getQuantidade();
             
             if (clientesQuantidade.has(clienteCpf)) {
                 clientesQuantidade.set(clienteCpf, clientesQuantidade.get(clienteCpf)! + quantidade);
@@ -47,12 +49,12 @@ export default class ListagemProdutosConsumidos extends Listagem {
         // Ordenar os clientes por quantidade de produtos consumidos em ordem decrescente
         const clientesOrdenados = Array.from(clientesQuantidade.entries()).sort((a, b) => b[1] - a[1]);
 
-        console.log(`\nClientes que mais consumiram produtos em quantidade:`);
+        console.log(`\nClientes que mais consumiram serviços em quantidade:`);
         clientesOrdenados.forEach(([clienteCpf, quantidade]) => {
             const cliente = this.clientes.find(cliente => cliente.getCpf.getValor === clienteCpf);
             if (cliente) {
                 console.log(`Nome do Cliente: ${cliente.nome}`);
-                console.log(`Quantidade de Produtos Consumidos: ${quantidade}`);
+                console.log(`Quantidade de Serviços Consumidos: ${quantidade}`);
                 console.log(`--------------------------------------`);
             } else {
                 console.log(`Cliente não encontrado.`);
@@ -61,40 +63,40 @@ export default class ListagemProdutosConsumidos extends Listagem {
         console.log(`\n`);
     }
 
-    public listarProdutosMaisConsumidos(): void {
-        const produtosQuantidade: Map<string, number> = new Map();
+    public listarServicosMaisConsumidos(): void {
+        const servicosQuantidade: Map<string, number> = new Map();
       
         // Calcular a quantidade total de cada produto consumido
-        this.produtosConsumidos.forEach(produtoConsumido => {
-          const produtoNome = produtoConsumido.getProduto().nome;
-          const quantidade = produtoConsumido.getQuantidade();
+        this.servicoConsumidos.forEach(servicoConsumido => {
+          const servicoNome = servicoConsumido.getServico().nome;
+          const quantidade = servicoConsumido.getQuantidade();
           
-          if (produtosQuantidade.has(produtoNome)) {
-            produtosQuantidade.set(produtoNome, (produtosQuantidade.get(produtoNome) ?? 0) + quantidade);
+          if (servicosQuantidade.has(servicoNome)) {
+            servicosQuantidade.set(servicoNome, (servicosQuantidade.get(servicoNome) ?? 0) + quantidade);
           } else {
-            produtosQuantidade.set(produtoNome, quantidade);
+            servicosQuantidade.set(servicoNome, quantidade);
           }
         });
       
         // Ordenar os produtos por quantidade consumida em ordem decrescente
-        const produtosOrdenados = Array.from(produtosQuantidade.entries()).sort((a, b) => b[1] - a[1]);
+        const servicosOrdenados = Array.from(servicosQuantidade.entries()).sort((a, b) => b[1] - a[1]);
       
-        console.log(`\nProdutos mais consumidos:`);
-        produtosOrdenados.forEach(([produtoNome, quantidade]) => {
-          console.log(`Produto: ${produtoNome}`);
+        console.log(`\nServiços mais consumidos:`);
+        servicosOrdenados.forEach(([servicoNome, quantidade]) => {
+          console.log(`Serviço: ${servicoNome}`);
           console.log(`Quantidade Consumida: ${quantidade}`);
           console.log(`--------------------------------------`);
         });
         console.log(`\n`);
-    }
+      }
 
-    public listarClientesMaisConsumiramValor(): void {
+      public listarClientesMaisConsumiramValor(): void {
         const clientesValor: Map<string, number> = new Map();
       
         // Calcular o valor total consumido por cada cliente
-        this.produtosConsumidos.forEach(produtoConsumido => {
-          const clienteCpf = produtoConsumido.getCliente().getCpf.getValor;
-          const valor = produtoConsumido.getProduto().valor * produtoConsumido.getQuantidade();
+        this.servicoConsumidos.forEach(servicoConsumido => {
+          const clienteCpf = servicoConsumido.getCliente().getCpf.getValor;
+          const valor = servicoConsumido.getServico().valor * servicoConsumido.getQuantidade();
           
           if (clientesValor.has(clienteCpf)) {
             clientesValor.set(clienteCpf, (clientesValor.get(clienteCpf) ?? 0) + valor);
@@ -120,32 +122,32 @@ export default class ListagemProdutosConsumidos extends Listagem {
         console.log(`\n`);
       }
 
-      public listarProdutosMaisConsumidosPorTipoERaca(): void {
-        const produtosTipoRaca: Map<string, Map<string, number>> = new Map();
+      public listarServicosMaisConsumidosPorTipoERaca(): void {
+        const servicosTipoRaca: Map<string, Map<string, number>> = new Map();
 
-        // Calcular a quantidade total de cada produto consumido por tipo e raça de pet
-        this.produtosConsumidos.forEach(produtoConsumido => {
-            const tipoPet = produtoConsumido.getPet().getTipo;
-            const racaPet = produtoConsumido.getPet().getRaca;
-            const quantidade = produtoConsumido.getQuantidade();
+        // Calcular a quantidade total de cada serviço consumido por tipo e raça de pet
+        this.servicoConsumidos.forEach(servicoConsumido => {
+            const tipoPet = servicoConsumido.getPet().getTipo;
+            const racaPet = servicoConsumido.getPet().getRaca;
+            const quantidade = servicoConsumido.getQuantidade();
             
-            if (!produtosTipoRaca.has(tipoPet)) {
-                produtosTipoRaca.set(tipoPet, new Map());
+            if (!servicosTipoRaca.has(tipoPet)) {
+                servicosTipoRaca.set(tipoPet, new Map());
             }
 
-            const produtosRaca = produtosTipoRaca.get(tipoPet);
-            if (produtosRaca && produtosRaca.has(racaPet)) {
-                produtosRaca.set(racaPet, (produtosRaca.get(racaPet) ?? 0)+ quantidade);
+            const servicosRaca = servicosTipoRaca.get(tipoPet);
+            if (servicosRaca && servicosRaca.has(racaPet)) {
+                servicosRaca.set(racaPet, (servicosRaca.get(racaPet) ?? 0) + quantidade);
             } else {
-                produtosRaca?.set(racaPet, quantidade);
+                servicosRaca?.set(racaPet, quantidade);
             }
         });
 
-        console.log(`\nProdutos mais consumidos por tipo e raça de pets:`);
-        produtosTipoRaca.forEach((produtosRaca, tipoPet) => {
+        console.log(`\nServiços mais consumidos por tipo e raça de pets:`);
+        servicosTipoRaca.forEach((servicosRaca, tipoPet) => {
             console.log(`Tipo de Pet: ${tipoPet}`);
             console.log(`-------------------------`);
-            Array.from(produtosRaca.entries()).sort((a, b) => b[1] - a[1]).forEach(([racaPet, quantidade]) => {
+            Array.from(servicosRaca.entries()).sort((a, b) => b[1] - a[1]).forEach(([racaPet, quantidade]) => {
                 console.log(`Raça do Pet: ${racaPet}`);
                 console.log(`Quantidade Consumida: ${quantidade}`);
                 console.log(`--------------------------------------`);
@@ -153,4 +155,5 @@ export default class ListagemProdutosConsumidos extends Listagem {
             console.log(`\n`);
         });
     }
+
 }
