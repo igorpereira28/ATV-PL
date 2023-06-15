@@ -2,59 +2,87 @@ import Entrada from "../io/entrada";
 import Cliente from "../modelo/cliente";
 import empresa from "../modelo/empresa";
 import SelecionadorTelefone from "./selecionadorTelefone";
+import ListagemTelefone from "../negocio/listagemTelefone";
+import Telefone from "../modelo/telefone";
 
-export default class AtualizarCliente{
-    private entrada: Entrada
-    private clientes: Array<Cliente>
+export default class AtualizarCliente {
+    private entrada: Entrada;
+    private clientes: Array<Cliente>;
+    private telefones: Array<Telefone>
 
-    constructor(clientes: Array<Cliente>) {
-        this.clientes = clientes
-        this.entrada = new Entrada()
+    constructor(clientes: Array<Cliente>, telefones: Array<Telefone>) {
+        this.clientes = clientes;
+        this.entrada = new Entrada();
+        this.telefones = telefones
     }
 
-    public atualizar(
-        clienteAlvo: Cliente,
-        novoNomeCliente?: string,
-        novoNomeSocialCliente?: string,
-        novoNumeroTelefone?: string
-      ) {
-        this.clientes.forEach((cliente, indice) => {
-          if (cliente.getCpf === clienteAlvo.getCpf) {
-            if (novoNomeCliente) {
-              this.clientes[indice].nome = novoNomeCliente;
-            }
-            if (novoNomeSocialCliente) {
-              this.clientes[indice].nomeSocial = novoNomeSocialCliente;
-            }
-      
+    public atualizar(cpf: string): void {
+      const cliente = this.clientes.find(cliente => cliente.getCpf.getValor === cpf);
+        if (cliente) {
             let execucao = true;
-      
+
             while (execucao) {
-              console.log(`Deseja atualizar telefone(s):`);
-              console.log(`1 - Sim`);
-              console.log(`2 - Não`);
+                console.log(`Deseja atualizar as informações do cliente ${cliente.nome}:`);
+                console.log(`1 - Nome`);
+                console.log(`2 - Nome Social`);
+                console.log(`3 - Atualizar Telefone`);
+                console.log(`4 - Sair`);
+
+                let opcao = this.entrada.receberNumero(`Por favor, escolha uma opção: `);
+
+                switch (opcao) {
+                    case 1:
+                        let novoNome = this.entrada.receberTexto(`Informe o novo nome: `);
+                        cliente.setNome(novoNome);
+                        console.log(`Nome atualizado com sucesso.`);
+                        break;
+
+                    case 2:
+                        let novoNomeSocial = this.entrada.receberTexto(`Informe o novo nome social: `);
+                        cliente.setNomeSocial(novoNomeSocial);
+                        console.log(`Nome social atualizado com sucesso.`);
+                        break;
+
+                    case 3:
+                      const telefonesCliente = this.telefones.filter(telefone => telefone.getCliente().getCpf.getValor === cpf)
+                      if (telefonesCliente.length > 0) {
+                        console.log(`Telefones disponíveis para o cliente ${cliente.nome}:`);
+        
+                          telefonesCliente.forEach((telefone, index) => {
+                              console.log(`${index + 1}. ${telefone.getDdd + '-' + telefone.getNumero}`);
+                        });
+                        let numeroTelefone = this.entrada.receberTexto(`Por favor, digite o ddd e o número do telefone a ser atualizado, neste formato 12-999999999: `);
+                        let partesTelefone = numeroTelefone.split('-')
+                        let dddAntigo = new String(partesTelefone[0].valueOf()).valueOf()
+                        let numeroAntigo = new String(partesTelefone[1].valueOf()).valueOf()
+
+                        const telefoneSelecionado = telefonesCliente.find(telefone => telefone.getDdd + '-' + telefone.getNumero === dddAntigo + '-' + numeroAntigo);
+                        if (telefoneSelecionado) {
+                          let novoNumero = this.entrada.receberTexto(`Informe o novo número do telefone: `)
+                          let partesTelefone = novoNumero.split('-')
+                          let ddd = new String(partesTelefone[0].valueOf()).valueOf()
+                          let numero = new String(partesTelefone[1].valueOf()).valueOf()
+                          telefoneSelecionado.setNumero(ddd, numero)
       
-              let entrada = new Entrada();
-              let opcao = entrada.receberNumero(`Por favor, escolha uma opção: `);
-      
-              switch (opcao) {
-                case 1:
-                  let selecionarTelefone = new SelecionadorTelefone(this.clientes, empresa.getTelefones);
-                  let procurarTelefone = entrada.receberTexto(`Por favor, digite o número de telefone do cliente para atualizar: `);
-                  let cpfClienteAlvo = clienteAlvo.getCpf.getValor;
-                  let telefoneCliente = selecionarTelefone.selecionar(cpfClienteAlvo, procurarTelefone);
-                  
-                  if (telefoneCliente && novoNumeroTelefone) {
-                      telefoneCliente.setNumero(novoNumeroTelefone);
-                  }
-                  break;
-                case 2:
-                  execucao = false;
-                  console.log(`BLZ`);
-                  break;
-              }
+                        } else {
+                          console.log(`Não há telefones cadastrados para o cliente ${cliente.nome}.`)
+                      }
+                    }
+                      break;
+
+                    case 4:
+                        execucao = false;
+                        console.log(`Operação de atualização finalizada.`);
+                        break;
+
+                    default:
+                        console.log(`Opção inválida.`);
+                        break;
+                }
             }
-          }
-        });
-      }
+          
+        } else {
+            console.log(`Cliente com CPF ${cpf} não encontrado.`);
+        }
+    }
 }

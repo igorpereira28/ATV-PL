@@ -27,6 +27,7 @@ import SelecionadorCliente from "../negocio/selecionadorCliente";
 import SelecionadorPet from "../negocio/selecionadorPet";
 import SelecionadorProduto from "../negocio/selecionadorProduto";
 import SelecionadorServico from "../negocio/selecionadorServico";
+import ListagemTelefone from "../negocio/listagemTelefone";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
 let empresa = new Empresa()
@@ -75,14 +76,10 @@ while (execucao) {
             let listagem = new ListagemClientes(empresa.getClientes, empresa.getRG, empresa.getTelefones, empresa.getPets)
             listagem.listar()
             break;
-        case 3:
-            let selecionarCliente = new SelecionadorCliente(empresa.getClientes)
+        case 3:            
             let procurarCliente = entrada.receberTexto(`Por favor, digite número cpf do cliente para atualizar: `)
-            let atuCliente = selecionarCliente.selecionar(procurarCliente)
-            let novoNomeCliente = entrada.receberTexto(`Por favor informe o novo nome: `)
-            let novoNomeSocialCliente = entrada.receberTexto(`Por favor informe o novo nome social: `)
-            let atualizarCliente = new AtualizarCliente(empresa.getClientes)
-            atualizarCliente.atualizar(atuCliente, novoNomeCliente, novoNomeSocialCliente)
+            let atualizarCliente = new AtualizarCliente(empresa.getClientes, empresa.getTelefones)
+            atualizarCliente.atualizar(procurarCliente)
             break;
         case 4:
             let selecionadorCliente = new SelecionadorCliente(empresa.getClientes)
@@ -102,11 +99,12 @@ while (execucao) {
             break;
         case 7:
             let selecionarProduto = new SelecionadorProduto(empresa.getProdutos)
-            let procurarProduto = entrada.receberTexto(`Por favor, digite o nome do serviço para atualizar: `)
+            let procurarProduto = entrada.receberTexto(`Por favor, digite o nome do produto para atualizar: `)
             let atuProduto = selecionarProduto.selecionar(procurarProduto)
-            let novoNomeProduto = entrada.receberTexto(`Por favor informe o novo nome do serviço: `)
-            let atualizarProduto = new AtualizarServico(empresa.getProdutos)
-            atualizarProduto.atualizar(atuProduto, novoNomeProduto)
+            let novoNomeProduto = entrada.receberTexto(`Por favor informe o novo nome do produto: `)
+            let novoValorProduto = entrada.receberNumero(`Por favor informe o novo valor do serviço: `)
+            let atualizarProduto = new AtualizarProduto(empresa.getProdutos)
+            atualizarProduto.atualizar(atuProduto, novoNomeProduto, novoValorProduto)
             break;
         case 8:
             let selecionadorProduto = new SelecionadorProduto(empresa.getProdutos)
@@ -129,8 +127,9 @@ while (execucao) {
             let nomeAtuServico = entrada.receberTexto(`Por favor, digite o nome do serviço para atualizar: `)
             let atuServico = atualizarServico.selecionar(nomeAtuServico)
             let novoNomeServico = entrada.receberTexto(`Por favor informe o novo nome do serviço: `)
+            let novoValorServico = entrada.receberNumero(`Por favor informe o novo nome do serviço: `)
             let atualiServico = new AtualizarServico(empresa.getServicos)
-            atualiServico.atualizar(atuServico, novoNomeServico)
+            atualiServico.atualizar(atuServico, novoNomeServico, novoValorServico)
             break;
         case 12:
             let selecionadorServico = new SelecionadorServico(empresa.getServicos)
@@ -179,10 +178,8 @@ while (execucao) {
             let listagemProdutoConsumido = new ListagemProdutosConsumidos(empresa.getClientes, empresa.getProdutosConsumidos, empresa.getPets)
             listagemProdutoConsumido.listar()
             break;
-            
-        
-        
-        case 21:
+
+        case 19:
             let listagemServico1 = new ListagemServicos(empresa.getServicos)
             listagemServico1.listar()
             let verificarServico = new SelecionadorServico(empresa.getServicos)
@@ -199,32 +196,32 @@ while (execucao) {
             cadastroServicoConsumido.cadastrar(procurarClienteServico1, procurarPet1, procurarServico1, opcaoQuantidade)
             break;
 
-        case 22:
+        case 20:
             let listagemServicoConsumido = new ListagemServicosConsumidos(empresa.getClientes, empresa.getPets, empresa.getServicosConsumidos)
             listagemServicoConsumido.listar()
             break;  
 
-        case 25:
+        case 21:
             const listagemProdutosConsumidos = new ListagemProdutosConsumidos(empresa.getClientes, empresa.getProdutosConsumidos, empresa.getPets);
             listagemProdutosConsumidos.listarClientesMaisConsumiram();
             break;
 
-        case 26:
+        case 22:
             const listagemServicosConsumidos = new ListagemServicosConsumidos(empresa.getClientes, empresa.getPets, empresa.getServicosConsumidos);
             listagemServicosConsumidos.listarClientesMaisConsumiram();
             break;
 
-        case 27:
+        case 23:
             const listagemProdutosMaisConsumidos = new ListagemProdutosConsumidos(empresa.getClientes, empresa.getProdutosConsumidos, empresa.getPets);
             listagemProdutosMaisConsumidos.listarProdutosMaisConsumidos();
             break;
 
-        case 28:
+        case 24:
             const listagemServicosMaisConsumidos = new ListagemServicosConsumidos(empresa.getClientes, empresa.getPets, empresa.getServicosConsumidos);
             listagemServicosMaisConsumidos.listarServicosMaisConsumidos();
             break;
 
-        case 31:
+        case 25:
             const listagemMaisConsumiramValor = new ListagemProdutosConsumidos(empresa.getClientes, empresa.getProdutosConsumidos, empresa.getPets);
             listagemMaisConsumiramValor.listarClientesMaisConsumiramValor();
             break;

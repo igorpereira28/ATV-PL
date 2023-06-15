@@ -10,10 +10,11 @@ export default class AtualizarProduto{
             this.entrada = new Entrada()
         }
 
-        public atualizar(produtoAlvo: Produto, novoProduto: string) {
+        public atualizar(produtoAlvo: Produto, novoProduto: string, valorNovoProduto: number) {
             this.produtos.forEach((produto, indice) => {
                 if (produto.nome == produtoAlvo.nome){
                     this.produtos[indice].nome = novoProduto
+                    this.produtos[indice].valor = valorNovoProduto
                 }
             })
         }

@@ -49,6 +49,40 @@ export default class CadastroCliente extends Cadastro {
         this.rgs.push(salvarrg)
 
         //Telefone
+        let execucaorg = true
+
+        while (execucaorg) {
+            console.log(`Deseja cadastrar mais um rg?`);
+            console.log(`1 - Sim`);
+            console.log(`2 - Não`);
+
+            let entrada = new Entrada()
+            let opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
+
+            switch (opcao) {
+
+                case 1:
+
+                    //RG
+                    let valorRG = this.entrada.receberTexto(`Por favor informe o número do RG: `);
+                    let dataRG = this.entrada.receberTexto(`Por favor informe a data de emissão do RG, no padrão dd/mm/yyyy: `);
+                    let partesDataRG = dataRG.split('/')
+                    let anoRG = new Number(partesDataRG[2].valueOf()).valueOf()
+                    let mesRG = new Number(partesDataRG[1].valueOf()).valueOf()
+                    let diaRG = new Number(partesDataRG[0].valueOf()).valueOf()
+                    let dataEmissaoRG = new Date(anoRG, mesRG, diaRG)
+                    let salvarrg = new RG(valorRG, dataEmissaoRG, cliente);
+                    this.rgs.push(salvarrg)
+                    break;
+
+                case 2:
+                    execucaorg = false
+                    console.log(`BLZ`)
+                    break;
+            }
+        }
+
+        //Telefone
         let execucao = true
 
         while (execucao) {

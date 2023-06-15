@@ -9,10 +9,11 @@ export default class AtualizarServico{
         this.entrada = new Entrada()
     }
     
-    public atualizar(servicoAlvo: Servico, novoServico: string) {
+    public atualizar(servicoAlvo: Servico, novoServico: string, novoValorServico: number) {
         this.servicos.forEach((servico, indice) => {
             if (servico.nome === servicoAlvo.nome) {
                 this.servicos[indice].nome = novoServico
+                this.servicos[indice].valor = novoValorServico
             }
         })
     }

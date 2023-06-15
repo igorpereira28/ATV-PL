@@ -65,6 +65,14 @@ export default class Cliente {
         this.pets.push(pet);
     }
 
+    public setNome(nome: string): void {
+        this.nome = nome;
+    }
+
+    public setNomeSocial(nomeSocial: string): void {
+        this.nomeSocial = nomeSocial;
+    }
+
     // public adicionarProdutoConsumido(): void {
     //     const adcprodutosConsumidos = new ProdutoConsumido(this, this, this);
     //     this.produtosConsumidos.push(adcprodutosConsumidos);

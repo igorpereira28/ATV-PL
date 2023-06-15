@@ -47,7 +47,7 @@ export default class ListagemServicosConsumidos extends Listagem {
         });
 
         // Ordenar os clientes por quantidade de produtos consumidos em ordem decrescente
-        const clientesOrdenados = Array.from(clientesQuantidade.entries()).sort((a, b) => b[1] - a[1]);
+        const clientesOrdenados = Array.from(clientesQuantidade.entries()).sort((a, b) => b[1] - a[1]).slice(0, 10);
 
         console.log(`\nClientes que mais consumiram serviços em quantidade:`);
         clientesOrdenados.forEach(([clienteCpf, quantidade]) => {
