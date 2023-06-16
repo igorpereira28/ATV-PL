@@ -1,4 +1,5 @@
 import React, { Component, ChangeEvent } from "react";
+import Mascara from "./mascara";
 
 type Props = {
   tema: string;
@@ -11,6 +12,7 @@ type State = {
     raca: string;
     genero: string;
   }[];
+  cpf: string
 };
 
 type PetField = "nome" | "tipo" | "raca" | "genero";
@@ -19,7 +21,8 @@ export default class FormularioCadastroPet extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      pets: [{ nome: "", tipo: "", raca: "", genero: "" }],
+      pets: [{ nome: "", tipo: "", raca: "", genero: "" ,}],
+      cpf: ""
     };
   }
 
@@ -41,6 +44,13 @@ export default class FormularioCadastroPet extends Component<Props, State> {
     });
   };
 
+  handleChangeCPF = (value: string) => {
+    if (value.length <= 11) {
+      this.setState({ cpf: Mascara.formatarCPF(value) });
+    }
+  };
+
+
   render() {
     const { tema } = this.props;
     const { pets } = this.state;
@@ -48,15 +58,18 @@ export default class FormularioCadastroPet extends Component<Props, State> {
     return (
       <div className="container-fluid">
         <form>
-          <div className="input-group mb-3">
+        <div className="input-group mb-3">
             <input
-              type="text"
-              className="form-control"
-              placeholder="Digite o CPF do responsável"
-              aria-label="CPF"
-              aria-describedby="basic-addon1"
-            />
-          </div>
+                type="text"
+                className="form-control"
+                placeholder="CPF"
+                aria-label="CPF"
+                aria-describedby="basic-addon1"
+                value={this.state.cpf} // Usando this.state.cpf
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                this.handleChangeCPF(e.target.value)
+                }/>
+        </div>
           <div className="input-group mb-3">
             <button className="btn btn-outline-secondary" type="button">
               Buscar

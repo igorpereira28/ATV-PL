@@ -1,20 +1,23 @@
 import React, { Component, ChangeEvent } from "react";
+import Mascara from "./mascara";
 
-type Props = {
+type props = {
   tema: string;
 };
 
-type State = {
+type state = {
   telefones: string[];
   rg: string[];
+  cpf: string;
 };
 
-export default class FormularioCadastroCliente extends Component<Props, State> {
-  constructor(props: Props) {
+export default class FormularioCadastroCliente extends Component<props, state> {
+  constructor(props: props) {
     super(props);
     this.state = {
       telefones: [],
       rg: [],
+      cpf: "",
     };
   }
 
@@ -31,19 +34,32 @@ export default class FormularioCadastroCliente extends Component<Props, State> {
   };
 
   handleChangeTelefone = (index: number, value: string) => {
-    this.setState((prevState) => {
-      const novosTelefones = [...prevState.telefones];
-      novosTelefones[index] = value;
-      return { telefones: novosTelefones };
-    });
+    if (value.length <= 15) {
+        this.setState((prevState) => {
+        const novosTelefones = [...prevState.telefones];
+        const telefoneFormatado = Mascara.formatarTelefone(value);
+        novosTelefones[index] = telefoneFormatado;
+        return { telefones: novosTelefones };
+
+    })
+
+    };
   };
 
   handleChangeRg = (index: number, value: string) => {
-    this.setState((prevState) => {
-      const novoRg = [...prevState.rg];
-      novoRg[index] = value;
-      return { rg: novoRg };
-    });
+    if (value.length <= 12) { // Verifica se o valor possui no máximo 12 caracteres
+      this.setState((prevState) => {
+        const novoRg = [...prevState.rg];
+        novoRg[index] = Mascara.formatarRG(value); // Aplica a formatação no valor digitado
+        return { rg: novoRg };
+      });
+    }
+  };
+
+  handleChangeCPF = (value: string) => {
+    if (value.length <= 11) {
+      this.setState({ cpf: Mascara.formatarCPF(value) });
+    }
   };
 
   render() {
@@ -89,17 +105,20 @@ export default class FormularioCadastroCliente extends Component<Props, State> {
           </div>
           <div className="input-group mb-3">
             <input
-              type="number"
-              className="form-control"
-              placeholder="CPF"
-              aria-label="CPF"
-              aria-describedby="basic-addon1"
-            />
-          </div>
+                type="text"
+                className="form-control"
+                placeholder="CPF"
+                aria-label="CPF"
+                aria-describedby="basic-addon1"
+                value={this.state.cpf} // Usando this.state.cpf
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                this.handleChangeCPF(e.target.value)
+                } />
+            </div>
           {rg.map((rg, index) => (
             <div className="input-group mb-3" key={index}>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 placeholder="RG"
                 aria-label="RG"
@@ -122,7 +141,7 @@ export default class FormularioCadastroCliente extends Component<Props, State> {
           {telefones.map((telefone, index) => (
             <div className="input-group mb-3" key={index}>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 placeholder="Telefone"
                 aria-label="Telefone"
