@@ -1,10 +1,19 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import conexao from '../db/conexao';
-
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import { Router } from 'express';
 
-const router = Router();
+const app = express();
+
+// Middleware de exemplo
+app.use(express.json());
+
+// Configuração do CORS
+app.use(cors());
+// Body Parse
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Chamando Inputs do Banco de Dados
 import Cliente from '../modelo/cliente';
@@ -14,22 +23,13 @@ import Servico from '../modelo/servico';
 import RG from '../modelo/rg';
 import Telefone from '../modelo/telefone';
 
-
 // Rotas - invocando depois usando a rota
 import ClienteRotas from '../routes/clienteRoutes';
 import PetRotas from '../routes/petRoutes';
 import ProdutoRotas from '../routes/produtoRoutes';
 import ServicoRotas from '../routes/servicoRoutes';
 
-
-const app = express();
-
-// Middleware de exemplo
-app.use(express.json());
-
-// Body Parse
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(cors({ credentials: true, origin: 'http://localhost:5173'}))
 
 
 // Usando Rotas
@@ -38,14 +38,11 @@ app.use('/pet', PetRotas);
 app.use('/produto', ProdutoRotas);
 app.use('/servico', ServicoRotas);
 
-// Rota de exemplo
-app.get('/', (req: Request, res: Response) => {
-  res.send('Olá, mundo!');
-});
-
 // Conexao com Banco de Dados
 conexao.sync().then(() => {
-  app.listen(3000);
+  app.listen(3000, () => {
+    console.log('Backend server is running on port 3000');
+  });
 }).catch(erro => {
   console.log('Deu erro: ', erro);
 });

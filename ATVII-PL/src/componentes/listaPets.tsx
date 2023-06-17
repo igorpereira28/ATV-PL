@@ -1,14 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Component } from "react";
+import React, { MouseEvent } from "react";
 
 type Props = {
   tema: string;
+  abrirAtualizarPet: (evento: MouseEvent<HTMLButtonElement>) => void;
 };
 
-export default class ListaPet extends Component<Props> {
-  render() {
-    const { tema } = this.props;
-
+const ListaPet: React.FC<Props> = ({ tema, abrirAtualizarPet }) => {
     return (
       <div className="container-fluid">
         <table className="table table-bordered tabela-curvada">
@@ -24,8 +22,12 @@ export default class ListaPet extends Component<Props> {
               <td>Pet 1</td>
               <td>Cliente 1</td>
               <td>
-                <button className="btn btn-primary btn-sm mr-2" style={{ marginRight: '2cm' }}>
-                  Atualizar
+              <button
+                className="btn btn-primary btn-sm mr-2"
+                style={{ marginRight: '2cm' }}
+                onClick={abrirAtualizarPet}
+              >                  
+              Atualizar
                 </button>
                 <button className="btn btn-danger btn-sm">
                   Deletar
@@ -36,8 +38,12 @@ export default class ListaPet extends Component<Props> {
               <td>Pet 2</td>
               <td>Cliente 2</td>
               <td>
-                <button className="btn btn-primary btn-sm mr-2" style={{ marginRight: '2cm' }}>
-                  Atualizar
+              <button
+                  className="btn btn-primary btn-sm mr-2"
+                  style={{ marginRight: '2cm' }}
+                  onClick={abrirAtualizarPet}
+                >                  
+                Atualizar
                 </button>
                 <button className="btn btn-danger btn-sm">
                   Deletar
@@ -48,8 +54,12 @@ export default class ListaPet extends Component<Props> {
               <td>Pet 3</td>
               <td>Cliente 3</td>
               <td>
-                <button className="btn btn-primary btn-sm mr-2" style={{ marginRight: '2cm' }}>
-                  Atualizar
+              <button
+                className="btn btn-primary btn-sm mr-2"
+                style={{ marginRight: '2cm' }}
+                onClick={abrirAtualizarPet}
+              >                  
+              Atualizar
                 </button>
                 <button className="btn btn-danger btn-sm">
                   Deletar
@@ -60,8 +70,12 @@ export default class ListaPet extends Component<Props> {
               <td>Pet 4</td>
               <td>Cliente 4</td>
               <td>
-                <button className="btn btn-primary btn-sm mr-2" style={{ marginRight: '2cm' }}>
-                  Atualizar
+              <button
+                className="btn btn-primary btn-sm mr-2"
+                style={{ marginRight: '2cm' }}
+                onClick={abrirAtualizarPet}
+              >                  
+              Atualizar
                 </button>
                 <button className="btn btn-danger btn-sm">
                   Deletar
@@ -72,7 +86,11 @@ export default class ListaPet extends Component<Props> {
               <td>Pet 5</td>
               <td>Cliente 5</td>
               <td>
-                <button className="btn btn-primary btn-sm mr-2" style={{ marginRight: '2cm' }}>
+              <button
+              className="btn btn-primary btn-sm mr-2"
+              style={{ marginRight: '2cm' }}
+              onClick={abrirAtualizarPet}
+            >                  
                   Atualizar
                 </button>
                 <button className="btn btn-danger btn-sm">
@@ -84,7 +102,11 @@ export default class ListaPet extends Component<Props> {
               <td>Pet 6</td>
               <td>Cliente 6</td>
               <td>
-                <button className="btn btn-primary btn-sm mr-2" style={{ marginRight: '2cm' }}>
+              <button
+              className="btn btn-primary btn-sm mr-2"
+              style={{ marginRight: '2cm' }}
+              onClick={abrirAtualizarPet}
+            >                  
                   Atualizar
                 </button>
                 <button className="btn btn-danger btn-sm">
@@ -97,4 +119,4 @@ export default class ListaPet extends Component<Props> {
       </div>
     );
   }
-}
+  export default ListaPet;

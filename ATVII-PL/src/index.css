@@ -15,3 +15,26 @@ code {
 .tabela-curvada {
   border-radius: 10px;
 }
+
+.container {
+  margin-top: 50px;
+}
+
+.btn {
+  padding: 15px 30px;
+  font-size: 18px;
+}
+
+.btn-outline-secondary {
+  border-color: #000;
+  color: #000;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.dropdown-menu .dropdown-item::before {
+  display: none !important;
+}
