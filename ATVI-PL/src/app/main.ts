@@ -226,7 +226,7 @@ while (execucao) {
             listagemServicosMaisConsumidos.listarServicosMaisConsumidos();
             break;
         
-        case 26:
+        case 25:
             const listagemProdutosMaisConsumidosPorTipoERaca = new ListagemProdutosConsumidos(empresa.getClientes, empresa.getProdutosConsumidos, empresa.getPets);
             listagemProdutosMaisConsumidosPorTipoERaca.listarProdutosMaisConsumidosPorTipoERaca();
             break;
