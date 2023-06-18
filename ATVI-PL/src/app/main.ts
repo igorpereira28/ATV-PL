@@ -58,15 +58,15 @@ while (execucao) {
     console.log(`16 - Deletar pet`);
     console.log(`17 - Cadastrar produto consumido`);
     console.log(`18 - Listar produtos consumidos`);
-    console.log(`21 - Cadastrar serviço consumido`);
-    console.log(`22 - Listar serviços consumidos`);
-    console.log(`25 - Listagem dos clientes que mais consumiram produtos em quantidade`);
-    console.log(`26 - Listagem dos clientes que mais consumiram serviços em quantidade`);
-    console.log(`27 - Listagem dos produtos mais consumidos`);
-    console.log(`28 - Listagem dos serviços mais consumidos`);
-    console.log(`29 - Listagem dos produtos mais consumidos por tipo e raça de pets.`)
-    console.log(`30 - Listagem dos serviços mais consumidos por tipo e raça de pets.`)
-    console.log(`31 - Listagem dos 5 clientes que mais consumiram em valor, não em quantidade`)
+    console.log(`19 - Cadastrar serviço consumido`);
+    console.log(`20 - Listar serviços consumidos`);
+    console.log(`21 - Listagem dos clientes que mais consumiram produtos em quantidade`);
+    console.log(`22 - Listagem dos clientes que mais consumiram serviços em quantidade`);
+    console.log(`23 - Listagem dos produtos mais consumidos`);
+    console.log(`24 - Listagem dos serviços mais consumidos`);
+    console.log(`25 - Listagem dos produtos mais consumidos por tipo e raça de pets.`)
+    console.log(`26 - Listagem dos serviços mais consumidos por tipo e raça de pets.`)
+    console.log(`27 - Listagem dos 5 clientes que mais consumiram em valor, não em quantidade`)
     console.log(`0 - Sair`);
 
     let entrada = new Entrada()
