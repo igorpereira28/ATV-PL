@@ -1,37 +1,65 @@
-import Entrada from "../io/entrada"
-import Cliente from "../modelo/cliente"
-import CPF from "../modelo/cpf"
-import Pet from "../modelo/pet"
-import RG from "../modelo/rg"
-import Telefone from "../modelo/telefone"
-import Cadastro from "./cadastro"
+import Entrada from "../io/entrada";
+import Cliente from "../modelo/cliente";
+import CPF from "../modelo/cpf";
+import Pet from "../modelo/pet";
+import RG from "../modelo/rg";
+import Telefone from "../modelo/telefone";
+import Cadastro from "./cadastro";
 
 export default class CadastroCliente extends Cadastro {
-    private clientes: Array<Cliente>
-    private entrada: Entrada
-    private rgs: Array<RG>
-    private telefones: Array<Telefone>
-    constructor(clientes: Array<Cliente>, rgs: Array<RG>, telefones: Array<Telefone>) {
-        super()
-        this.clientes = clientes
-        this.entrada = new Entrada()
-        this.rgs = rgs
-        this.telefones = telefones
-    }
-    public cadastrar(): void {
-        console.log(`\nInício do cadastro do cliente`);
-        let nome = this.entrada.receberTexto(`Por favor informe o nome do cliente: `)
-        let nomeSocial = this.entrada.receberTexto(`Por favor informe o nome social do cliente: `)
+  private clientes: Array<Cliente>;
+  private entrada: Entrada;
+  private rgs: Array<RG>;
+  private telefones: Array<Telefone>;
 
-        //CPF
-        let valor = this.entrada.receberTexto(`Por favor informe o número do cpf: `);
-        let data = this.entrada.receberTexto(`Por favor informe a data de emissão do cpf, no padrão dd/mm/yyyy: `);
-        let partesData = data.split('/')
-        let ano = new Number(partesData[2].valueOf()).valueOf()
-        let mes = new Number(partesData[1].valueOf()).valueOf()
-        let dia = new Number(partesData[0].valueOf()).valueOf()
-        let dataEmissao = new Date(ano, mes, dia)
-        let cpf = new CPF(valor, dataEmissao);
+  constructor(
+    clientes: Array<Cliente>,
+    rgs: Array<RG>,
+    telefones: Array<Telefone>
+  ) {
+    super();
+    this.clientes = clientes;
+    this.entrada = new Entrada();
+    this.rgs = rgs;
+    this.telefones = telefones;
+  }
+
+  public cadastrar(): void {
+    console.log(`\nInício do cadastro do cliente`);
+    let nome: string = this.entrada.receberTexto(
+      `Por favor, informe o nome do cliente: `
+    );
+    let nomeSocial: string = this.entrada.receberTexto(
+      `Por favor, informe o nome social do cliente: `
+    );
+
+    // CPF
+    let valorCPF: string = this.entrada.receberTexto(
+      `Por favor, informe o número do CPF: `
+    );
+    let dataCPF: string = this.entrada.receberTexto(
+      `Por favor, informe a data de emissão do CPF no formato dd/mm/yyyy: `
+    );
+    let partesDataCPF: Array<string> = dataCPF.split('/');
+    let anoCPF: number = Number(partesDataCPF[2]);
+    let mesCPF: number = Number(partesDataCPF[1]) - 1;
+    let diaCPF: number = Number(partesDataCPF[0]);
+    let dataEmissaoCPF: Date = new Date(anoCPF, mesCPF, diaCPF);
+    let cpf: CPF = new CPF(valorCPF, dataEmissaoCPF);
+
+    // Verificar se o CPF já está em uso
+    let cpfEmUso: boolean = false;
+    for (let cliente of this.clientes) {
+      if (cliente.getCpf.getValor === cpf.getValor) {
+        cpfEmUso = true;
+        break;
+      }
+    }
+
+    if (cpfEmUso) {
+      console.log(`Este CPF já está em uso. Não é possível utilizá-lo.`);
+      return; // Encerra o cadastro
+    }
 
         //RG
         let valorRG = this.entrada.receberTexto(`Por favor informe o número do RG: `);

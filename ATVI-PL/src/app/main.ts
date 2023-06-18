@@ -225,8 +225,18 @@ while (execucao) {
             const listagemServicosMaisConsumidos = new ListagemServicosConsumidos(empresa.getClientes, empresa.getPets, empresa.getServicosConsumidos);
             listagemServicosMaisConsumidos.listarServicosMaisConsumidos();
             break;
+        
+        case 26:
+            const listagemProdutosMaisConsumidosPorTipoERaca = new ListagemProdutosConsumidos(empresa.getClientes, empresa.getProdutosConsumidos, empresa.getPets);
+            listagemProdutosMaisConsumidosPorTipoERaca.listarProdutosMaisConsumidosPorTipoERaca();
+            break;
+        
+        case 26:
+            const listagemServicosMaisConsumidosPorTipoERaca = new ListagemServicosConsumidos(empresa.getClientes, empresa.getPets, empresa.getServicosConsumidos);
+            listagemServicosMaisConsumidosPorTipoERaca.listarServicosMaisConsumidosPorTipoERaca();
+            break;
 
-        case 25:
+        case 27:
             const listagemMaisConsumiramValor = new ListagemProdutosConsumidos(empresa.getClientes, empresa.getProdutosConsumidos, empresa.getPets);
             listagemMaisConsumiramValor.listarClientesMaisConsumiramValor();
             break;
